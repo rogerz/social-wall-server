@@ -12,8 +12,8 @@ var app = module.exports = express();
 // all environments
 app.set('port', process.env.PORT || 3000);
 
-app.use('/models', require('./lib/models'));
-// app.use('/robots', require('lib/robots'));
+app.use('/models', require('models'));
+app.use('/robots', require('robots'));
 app.use(app.router);
 
 // development only
