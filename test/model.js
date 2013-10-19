@@ -1,5 +1,6 @@
-var should = require('should'),
-    request = require('supertest'),
+'use strict';
+
+var request = require('supertest'),
     config = require('./fixtures/config'),
     app = config.app;
 
