@@ -3,6 +3,9 @@ require('should');
 var robot = require('robots').get('robot');
 var reload = require('./fixtures/config').reload;
 var config = require('robots/config');
+var models = require('models'),
+    Guest = models.Guest,
+    Message = models.Message;
 
 describe('robot of event', function () {
   var info, session;
@@ -35,14 +38,20 @@ describe('robot of event', function () {
     info.text = 'nick';
     reply(info, function (err, info) {
       info.reply.should.equal(config.helpMsg);
-      done();
+      Guest.find({id: info.uid}, function (err, docs) {
+        docs.should.have.lengthOf(1);
+        done();
+      });
     });
   });
   describe('in chat', function () {
     it('should return ack on chat', function (done) {
       reply('hello', function (err, info) {
         info.reply.should.equal(config.ackMsg);
-        done();
+        Message.find(function (err, docs) {
+          docs.should.have.lengthOf(1);
+          done();
+        });
       });
     });
     it('should return goodbye on exit', function (done) {
