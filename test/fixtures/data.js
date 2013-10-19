@@ -6,3 +6,6 @@ exports.Event = [
     name: 'letsface party'
   }
 ];
+
+exports.Guest = [];
+exports.Message = [];

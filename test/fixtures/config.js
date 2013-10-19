@@ -1,6 +1,6 @@
 'use strict';
 var fixtures = require('pow-mongoose-fixtures'),
-    app = require('models'),
+    app = require('models').app,
     data = require('./data'),
     done = false,
     mongoose = app.mongoose,
@@ -8,13 +8,15 @@ var fixtures = require('pow-mongoose-fixtures'),
 
 exports.app = app;
 
-fixtures.load(data, mongoose.connection, function () {
-  exports.events = data.events;
-  done = true;
-  if (callback) {
-    return callback();
-  }
-});
+exports.reload = function () {
+  fixtures.load(data, mongoose.connection, function () {
+    exports.events = data.events;
+    done = true;
+    if (callback) {
+      return callback();
+    }
+  });
+};
 
 exports.events = data.events;
 exports.users = data.users;

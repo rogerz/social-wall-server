@@ -1,8 +1,7 @@
 'use strict';
 
 var request = require('supertest'),
-    config = require('./fixtures/config'),
-    app = config.app,
+    app = require('..'),
     path = '/models/';
 
 describe('models', function () {

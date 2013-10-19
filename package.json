@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "NODE_PATH=lib ./node_modules/.bin/mocha test lib/robots/test -R spec",
+    "test": "NODE_PATH=lib ./node_modules/.bin/mocha -R spec",
     "start": "NODE_PATH=lib node app.js"
   },
   "keywords": [

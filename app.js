@@ -12,7 +12,7 @@ var app = module.exports = express();
 // all environments
 app.set('port', process.env.PORT || 3000);
 
-app.use('/models', require('models'));
+app.use('/models', require('models').app);
 app.use('/robots', require('robots'));
 app.use(app.router);
 
