@@ -2,13 +2,17 @@
 
 var request = require('supertest'),
     config = require('./fixtures/config'),
-    app = config.app;
+    app = config.app,
+    path = '/models/';
 
-describe('handlers', function () {
-  it('should handle models request', function () {
-    request(app)
-    .get('/models/events')
-    .expect('Content-Type', /json/)
-    .expect(200);
+describe('models', function () {
+  it('should provide resources', function () {
+    var resources = ['events', 'guests', 'messages'];
+    for (var res = 0; res < resources.length; res++) {
+      request(app)
+      .get(path + res)
+      .expect('Content-Type', /json/)
+      .expect(200);
+    }
   });
 });
