@@ -1,8 +1,10 @@
 'use strict';
-var expect = require('expect.js');
-var server = require('..').server;
+require('should');
+
 var request = require('supertest');
 var ioc = require('socket.io-client');
+
+var server = require('..').server;
 
 function client(server, namespace, options) {
   if ('object' === typeof namespace) {
@@ -27,16 +29,27 @@ describe('socket', function () {
     server.listen(function () {
       var socket = client(server);
       socket.on('socket:ident', function (a) {
-        expect(a).to.eql({name: 'social-wall'});
+        a.should.eql({name: 'social-wall'});
         done();
       });
     });
   });
   it('should emit heartbeat', function (done) {
     server.listen(function () {
-      var socket=client(server);
+      var socket = client(server);
       socket.on('socket:heartbeat', function(a) {
-        expect('time' in a).to.be(true);
+        a.should.have.property('time');
+        done();
+      });
+    });
+  });
+  it('should reply ping', function (done) {
+    server.listen(function () {
+      var ping = 'data';
+      var socket = client(server);
+      socket.emit('socket:ping', ping);
+      socket.on('socket:pong', function (pong) {
+        pong.should.eql(ping);
         done();
       });
     });

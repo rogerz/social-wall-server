@@ -7,6 +7,8 @@ var models = require('models'),
     channels = require('channels'),
     Guest = models.Guest,
     Message = models.Message;
+var debug = require('debug'),
+    verbose = debug('test:rules');
 
 describe('robot of event', function () {
   var info, session, subscription;
@@ -29,7 +31,6 @@ describe('robot of event', function () {
       subscription.unsubscribe();
     }
   });
-
   function reply(info, fn) {
     if (typeof info === 'string') {
       info = {text: info};
@@ -57,37 +58,39 @@ describe('robot of event', function () {
       });
     });
   });
-  describe('in chat', function () {
-    beforeEach(infoInit);
-    it('should return ack on chat', function (done) {
-      info.text = 'hello';
-      reply(info, function (err, info) {
-        info.reply.should.equal(config.ackMsg);
-        Message.find(function (err, docs) {
-          docs.should.have.lengthOf(1);
-          done();
-        });
+  it('should return ack on chat', function (done) {
+    info.text = 'hello';
+    subscription = channels.events(info.session.event).subscribe('chat', function (message) {
+      message.guestId.should.equal(info.uid);
+      message.content.text.should.equal(info.text);
+      verbose('receive chat', message);
+      done();
+    });
+    reply(info, function (err, info) {
+      info.reply.should.equal(config.ackMsg);
+      Message.find(function (err, docs) {
+        docs.should.have.lengthOf(1);
       });
     });
-    it('should continue chating', function (done) {
-      info.text = 'hello2';
-      reply(info, function (err, info) {
-        info.reply.should.equal(config.ackMsg);
-        Message.find(function (err, docs) {
-          docs.should.have.lengthOf(2);
-          done();
-        });
-      });
-    });
-    it('should return goodbye on exit', function (done) {
-      info.text = 'exit';
-      channels.events(info.session.event).subscribe('leave', function (guestId) {
-        guestId.should.equal(info.uid);
+  });
+  it('should continue chating', function (done) {
+    info.text = 'hello2';
+    reply(info, function (err, info) {
+      info.reply.should.equal(config.ackMsg);
+      Message.find(function (err, docs) {
+        docs.should.have.lengthOf(2);
         done();
       });
-      reply(info, function (err, info) {
-        info.reply.should.equal(config.goodbyeMsg);
-      });
+    });
+  });
+  it('should return goodbye on exit', function (done) {
+    info.text = 'exit';
+    subscription = channels.events(info.session.event).subscribe('leave', function (guestId) {
+      guestId.should.equal(info.uid);
+      done();
+    });
+    reply(info, function (err, info) {
+      info.reply.should.equal(config.goodbyeMsg);
     });
   });
 });
