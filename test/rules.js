@@ -15,10 +15,12 @@ describe('robot of event', function () {
     session = {};
   });
 
-  beforeEach(function () {
+  function infoInit() {
     info = new robot.Info();
     info.session = session;
-  });
+  }
+
+  beforeEach(infoInit);
 
   function reply(info, fn) {
     if (typeof info === 'string') {
@@ -45,8 +47,10 @@ describe('robot of event', function () {
     });
   });
   describe('in chat', function () {
+    beforeEach(infoInit);
     it('should return ack on chat', function (done) {
-      reply('hello', function (err, info) {
+      info.text = 'hello';
+      reply(info, function (err, info) {
         info.reply.should.equal(config.ackMsg);
         Message.find(function (err, docs) {
           docs.should.have.lengthOf(1);
@@ -54,8 +58,19 @@ describe('robot of event', function () {
         });
       });
     });
+    it('should continue chating', function (done) {
+      info.text = 'hello2';
+      reply(info, function (err, info) {
+        info.reply.should.equal(config.ackMsg);
+        Message.find(function (err, docs) {
+          docs.should.have.lengthOf(2);
+          done();
+        });
+      });
+    });
     it('should return goodbye on exit', function (done) {
-      reply('exit', function (err, info) {
+      info.text = 'exit';
+      reply(info, function (err, info) {
         info.reply.should.equal(config.goodbyeMsg);
         done();
       });
