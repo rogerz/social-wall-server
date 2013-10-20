@@ -54,4 +54,20 @@ describe('socket', function () {
       });
     });
   });
+  it('should subscribe guest activity', function (done) {
+    var channels = require('channels');
+    var eventName = require('robots/config').eventName;
+    var channel = channels.events(eventName);
+
+    server.listen(function () {
+      var socket = client(server);
+      var guest = {id: 12323, nickname: 'nick'};
+      socket.emit('events:subscribe', eventName);
+      channel.publish('enter', guest);
+      socket.on('enter', function (data) {
+        data.should.eql(guest);
+        done();
+      });
+    });
+  });
 });
