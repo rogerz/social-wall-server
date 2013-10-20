@@ -81,9 +81,12 @@ describe('robot of event', function () {
     });
     it('should return goodbye on exit', function (done) {
       info.text = 'exit';
+      channels.events(info.session.event).subscribe('leave', function (guestId) {
+        guestId.should.equal(info.uid);
+        done();
+      });
       reply(info, function (err, info) {
         info.reply.should.equal(config.goodbyeMsg);
-        done();
       });
     });
   });
