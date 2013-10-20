@@ -4,11 +4,12 @@ var robot = require('robots').get('robot');
 var reload = require('./fixtures/config').reload;
 var config = require('robots/config');
 var models = require('models'),
+    channels = require('channels'),
     Guest = models.Guest,
     Message = models.Message;
 
 describe('robot of event', function () {
-  var info, session;
+  var info, session, subscription;
 
   before(function () {
     reload();
@@ -17,10 +18,17 @@ describe('robot of event', function () {
 
   function infoInit() {
     info = new robot.Info();
+    info.uid = 'client';
+    info.sid = 'server';
     info.session = session;
   }
 
   beforeEach(infoInit);
+  afterEach(function () {
+    if (subscription) {
+      subscription.unsubscribe();
+    }
+  });
 
   function reply(info, fn) {
     if (typeof info === 'string') {
@@ -38,11 +46,14 @@ describe('robot of event', function () {
   });
   it('should accept nickname', function (done) {
     info.text = 'nick';
+    subscription = channels.events(config.eventName).subscribe('enter', function (guest) {
+      guest.id.should.equal(info.uid);
+      done();
+    });
     reply(info, function (err, info) {
       info.reply.should.equal(config.helpMsg);
       Guest.find({id: info.uid}, function (err, docs) {
         docs.should.have.lengthOf(1);
-        done();
       });
     });
   });
