@@ -18,12 +18,14 @@ app.use(app.router);
 
 // development only
 if (app.get('env') === 'development') {
+  app.use(express['static']('site/app'));
+  app.use(express['static']('site/.tmp'));
   app.use(express.errorHandler());
 }
 
 // production only
 if (app.get('env') === 'production') {
-  // TODO
+  app.use(express['static']('site/dist'));
 }
 
 // Enable socket.io
