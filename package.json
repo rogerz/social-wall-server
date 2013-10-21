@@ -12,16 +12,24 @@
   },
   "keywords": [
     "mongoose",
-    "restful"
+    "restful",
+    "sns",
+    "wechat",
+    "webot"
   ],
   "author": "Rogerz Zhang",
   "license": "BSD",
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/isaacs/npm.git"
+  },
   "dependencies": {
     "express": "~3.4.1",
     "node-restful": "~0.1.14",
     "socket.io": "~0.9.16",
     "weixin-robot": "~0.4.5-2",
-    "mubsub": "~1.0.4"
+    "mubsub": "~1.0.4",
+    "debug": "~0.7.2"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
