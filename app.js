@@ -2,6 +2,7 @@
 /**
  * Module dependencies
  */
+require('cf-autoconfig');
 var express = require('express');
 var app = module.exports = express();
 
