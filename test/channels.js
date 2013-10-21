@@ -1,6 +1,6 @@
 'use strict';
 var should = require('should');
-var channels = require('channels');
+var channels = require('../lib/channels');
 
 describe('channels', function () {
   it('should create channel for events', function () {

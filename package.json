@@ -1,14 +1,14 @@
 {
-  "name": "social-wall-db",
+  "name": "social-wall-server",
   "version": "0.0.0",
-  "description": "social wall database access interface",
+  "description": "social wall backend server.",
   "main": "app.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "NODE_PATH=lib ./node_modules/.bin/mocha -R spec",
-    "start": "NODE_PATH=lib node app.js"
+    "test": "node_modules/.bin/mocha -R spec",
+    "start": "node app.js"
   },
   "keywords": [
     "mongoose",

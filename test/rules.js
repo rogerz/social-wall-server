@@ -1,10 +1,10 @@
 'use strict';
 require('should');
-var robot = require('robots').get('robot');
+var robot = require('../lib/robots').get('robot');
 var reload = require('./fixtures/config').reload;
-var config = require('robots/config');
-var models = require('models'),
-    channels = require('channels'),
+var config = require('../lib/robots/config');
+var models = require('../lib/models'),
+    channels = require('../lib/channels'),
     Guest = models.Guest,
     Message = models.Message;
 var debug = require('debug'),

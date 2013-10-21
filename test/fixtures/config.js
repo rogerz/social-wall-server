@@ -1,6 +1,6 @@
 'use strict';
 var fixtures = require('pow-mongoose-fixtures'),
-    app = require('models').app,
+    app = require('../../lib/models').app,
     data = require('./data'),
     done = false,
     mongoose = app.mongoose,

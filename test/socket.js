@@ -55,8 +55,8 @@ describe('socket', function () {
     });
   });
   it('should subscribe guest activity', function (done) {
-    var channels = require('channels');
-    var eventName = require('robots/config').eventName;
+    var channels = require('../lib/channels');
+    var eventName = require('../lib/robots/config').eventName;
     var channel = channels.events(eventName);
 
     server.listen(function () {
