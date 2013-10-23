@@ -9,11 +9,13 @@ var app = module.exports = express();
  * Configuration
  */
 
-// all environments
-app.set('port', process.env.PORT || 3000);
+var config = require('./config.js');
 
-app.use('/models', require('./lib/models').app);
-app.use('/robots', require('./lib/robots'));
+// all environments
+app.set('port', config.port);
+
+app.use('/api/models', require('./lib/models').app);
+app.use('/api/robots', require('./lib/robots'));
 app.use(app.router);
 
 // development only
