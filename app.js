@@ -14,8 +14,8 @@ var config = require('./config.js');
 // all environments
 app.set('port', config.port);
 
-app.use('/api/models', require('./lib/models').app);
-app.use('/api/robots', require('./lib/robots'));
+app.use(config.api + '/models', require('./lib/models').app);
+app.use(config.api + '/robots', require('./lib/robots'));
 app.use(app.router);
 
 // development only
@@ -33,7 +33,10 @@ if (app.get('env') === 'production') {
 // Enable socket.io
 var io = require('./lib/socket');
 var server = app.server = require('http').Server(app);
-io.register(server);
+io.attach(server, {
+  'log level': 1,
+  'resource': config.api + '/socket.io'
+});
 
 /**
  * Start Server
