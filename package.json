@@ -2,13 +2,13 @@
   "name": "social-wall-server",
   "version": "0.0.0",
   "description": "social wall backend server.",
-  "main": "app.js",
+  "main": "api.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "node_modules/.bin/mocha -R spec",
-    "start": "node app.js"
+    "start": "node api.js"
   },
   "keywords": [
     "mongoose",
