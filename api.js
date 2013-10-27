@@ -14,7 +14,7 @@ var config = require('./config.js');
 // all environments
 app.set('port', config.port);
 
-app.use(config.api + '/models', require('./lib/models').app);
+app.use(config.api + '/restful', require('./lib/restful').app);
 app.use(config.api + '/robots', require('./lib/robots'));
 app.use(app.router);
 

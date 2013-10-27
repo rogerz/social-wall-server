@@ -60,7 +60,7 @@ describe('robot of event', function () {
   });
   it('should return ack on chat', function (done) {
     info.text = 'hello';
-    subscription = channels.events(info.session.event).subscribe('chat', function (message) {
+    subscription = channels.events(config.eventName).subscribe('chat', function (message) {
       message.guestId.should.equal(info.uid);
       message.content.text.should.equal(info.text);
       verbose('receive chat', message);

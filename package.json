@@ -19,9 +19,9 @@
   ],
   "author": "Rogerz Zhang",
   "license": "BSD",
-  "repository" : {
-    "type" : "git",
-    "url" : "http://github.com/isaacs/npm.git"
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/isaacs/npm.git"
   },
   "dependencies": {
     "express": "~3.4.1",
@@ -29,7 +29,10 @@
     "socket.io": "~0.9.16",
     "weixin-robot": "~0.4.5-2",
     "mubsub": "~1.0.4",
-    "debug": "~0.7.2"
+    "debug": "~0.7.2",
+    "formage": "~2.0.10",
+    "pluralize": "0.0.5",
+    "glob": "~3.2.6"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
@@ -41,6 +44,7 @@
     "xml2js": "~0.2.8",
     "underscore": "~1.5.2",
     "request": "~2.27.0",
-    "debug": "~0.7.2"
+    "debug": "~0.7.2",
+    "async": "~0.2.9"
   }
 }

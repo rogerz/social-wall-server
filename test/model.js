@@ -1,17 +1,20 @@
 'use strict';
 
 var request = require('supertest'),
-    app = require('..'),
-    path = '/models/';
+    app = require('..');
+var config = require('../config');
+var path = config.api + '/restful/';
+var async = require('async');
 
-describe('models', function () {
-  it('should provide resources', function () {
+describe('restful', function () {
+  it('should provide resources', function (done) {
     var resources = ['events', 'guests', 'messages'];
-    for (var res = 0; res < resources.length; res++) {
+    var iter = function (res, fn) {
       request(app)
       .get(path + res)
       .expect('Content-Type', /json/)
-      .expect(200);
-    }
+      .expect(200, fn);
+    };
+    async.each(resources, iter, done);
   });
 });
