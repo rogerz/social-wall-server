@@ -5,7 +5,7 @@ var request = require('supertest');
 var ioc = require('socket.io-client');
 
 var server = require('..').server;
-var config = require('../config');
+var config = require('../lib/config');
 
 function client(server, namespace, options) {
   if ('object' === typeof namespace) {

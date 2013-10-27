@@ -2,7 +2,7 @@
 
 var request = require('supertest'),
     app = require('..');
-var config = require('../config');
+var config = require('../lib/config');
 var path = config.api + '/restful/';
 var async = require('async');
 

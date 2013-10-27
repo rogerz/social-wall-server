@@ -9,7 +9,7 @@ var app = module.exports = express();
  * Configuration
  */
 
-var config = require('./config.js');
+var config = require('./lib/config');
 
 // all environments
 app.set('port', config.port);
