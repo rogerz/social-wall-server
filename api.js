@@ -18,17 +18,16 @@ app.use(config.api + '/restful', require('./lib/restful').app);
 app.use(config.api + '/robots', require('./lib/robots'));
 app.use(app.router);
 
-// development only
-if (app.get('env') === 'development') {
+app.configure('development', function () {
   app.use(express['static']('site/app'));
   app.use(express['static']('site/.tmp'));
+  app.use(express.logger('dev'));
   app.use(express.errorHandler());
-}
+});
 
-// production only
-if (app.get('env') === 'production') {
+app.configure('production', function () {
   app.use(express['static']('site/dist'));
-}
+});
 
 // Enable socket.io
 var io = require('./lib/socket');

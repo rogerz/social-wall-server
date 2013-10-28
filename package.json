@@ -30,7 +30,6 @@
     "weixin-robot": "~0.4.5-2",
     "mubsub": "~1.0.4",
     "debug": "~0.7.2",
-    "formage": "~2.0.10",
     "pluralize": "0.0.5",
     "glob": "~3.2.6"
   },
